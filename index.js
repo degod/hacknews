@@ -13,32 +13,39 @@
 	        }
 	    }
 	};
-	var fetchData = function fetchData(url, data, type, what) {
-		var response = "";
-		$.ajax({
-			type: type,
-			url: url,
-			data: data,
-			beforeSend: function(){
-				$("#display").html("Loading up "+what+"!!!");
-			},
-			success: function(e){
-				$("#display").html("Done Loading and waiting for Action!");
-                response = e;
+    $(document).ready(function(){
+        var headlinesIDs = [];
+    	$.ajax({
+    		url: "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty",
+            type: "GET",
+    		beforeSend: function(){
+    			$("#display").html("Loading up Top Stories!!!");
+    		},
+    		success: function(e){
+    			$("#display").html("Done Loading and waiting for Action!");
+                headlinesIDs = e;
+                var headlines = [];
+                for(var i=0; i<headlinesIDs.length; i++){
+                    var id = headlinesIDs[i];
+                    $.ajax({
+                        url: "https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty",
+                        type: "GET",
+                        beforeSend: function(){
+                            $("#display").html("Loading up Top Stories!!!");
+                        },
+                        success: function(e){
+                            $("#display").html("Done Loading and waiting for Action!");
+                            headlines[headlines.length] = e;
+                        },
+                        error: function(e){
+                            response = e
+                        }
+                    });
+                }
+                console.log(headlines);
             },
             error: function(e){
-                response = e
+                console.log(e);
             }
         });
-        return response;
-    };
-    $(document).ready(function(){
-        var headlinesIDs = fetchData("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty", "", "GET", "Top Stories");
-        console.log(headlinesIDs);
-        var headlines = [];
-        for(var i=0; i<headlinesIDs.length; i++){
-            var id = headlinesIDs[i];
-            headlines[headlines.length] = fetchData("https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty", "", "GET", "Top Stories");
-        }
-        console.log(headlines);
 });
