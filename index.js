@@ -78,7 +78,7 @@ function printHeadlines(e){
         var id = headlinesIDs[i];
         var request = new httpRequest();
         request.method = "GET";
-        request.url = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty";
+        request.url = "https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty";
         request.success = function(e) {
             e = JSON.parse(e);
 		console.log(e);
