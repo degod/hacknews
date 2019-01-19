@@ -24,16 +24,21 @@
 			},
 			success: function(e){
 				$("#display").html("Done Loading and waiting for Action!");
-				console.log(e);
-				response = e;
-			},
-			error: function(e){
-				response = e
-			}
-		});
-		return response;
-	};
-	$(document).ready(function(){
-		var headlinesID = fetchData("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty", "", "GET", "Top Stories");
-		// var
-	});
+                response = e;
+            },
+            error: function(e){
+                response = e
+            }
+        });
+        return response;
+    };
+    $(document).ready(function(){
+        var headlinesIDs = fetchData("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty", "", "GET", "Top Stories");
+        console.log(headlinesIDs);
+        var headlines = [];
+        for(var i=0; i<headlinesIDs.length; i++){
+            var id = headlinesIDs[i];
+            headlines[headlines.length] = fetchData("https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty", "", "GET", "Top Stories");
+        }
+        console.log(headlines);
+});
