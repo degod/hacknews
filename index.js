@@ -125,7 +125,7 @@ function printHeadlines(e){
                 `+(parseInt(i)+1)+`. &nbsp;<a href="index.html?newsid=`+id+`.json?print=pretty">
                     `+e.title+`
                 </a> <a href="`+e.url+`">(`+e.url.split("/")[2].replace("www.", "")+`)</a><br>
-                <small>`+e.score+` points by `+e.by+` `+timeSince(e.score)+`| `+JSON.parse(e.score).length+` comments</small><hr>
+                <small>`+e.score+` points by `+e.by+` `+timeSince(e.score)+` | `+e.score.length+` comments</small><hr>
             `;
         };
         request.send();
