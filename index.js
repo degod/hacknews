@@ -62,7 +62,7 @@ function httpRequest() {
 }
 
 var headlinesIDs = [];
-var page = getUrlParameter(paginate);
+var page = getUrlParameter('paginate');
 if(isNaN(page) || page == undefined || page == 0 || page == ""){
     page = 0;
 }
