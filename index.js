@@ -93,7 +93,6 @@ function printHeadlines(e){
         request.url = "https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty";
         request.success = function(e) {
             e = JSON.parse(e);
-            // console.log(e);
             var content = document.getElementById("headlines").innerHTML;
             document.getElementById("headlines").innerHTML = content+`
                 `+(parseInt(i)+1)+`. &nbsp;<a href="index.html?newsid=`+id+`.json?print=pretty">
@@ -105,10 +104,20 @@ function printHeadlines(e){
     }
     if(pull < total){
         var content = document.getElementById("headlines").innerHTML;
-        document.getElementById("headlines").innerHTML = content+`
-            <a href="index.html?paginate=`+pull+`">
-                See More ...
-            </a><hr>
-        `;
+        if(page == 0){
+            document.getElementById("headlines").innerHTML = content+`
+                <a href="index.html?paginate=`+pull+`">
+                    See More ...
+                </a><hr>
+            `;
+        }else{
+            document.getElementById("headlines").innerHTML = content+`
+                <div><a href="index.html?paginate=`+page+`">
+                    << Previous Page
+                </a><a href="index.html?paginate=`+pull+`" style="float:right">
+                    Next Page >>
+                </a></div><hr>
+            `;
+        }
     }
 }
