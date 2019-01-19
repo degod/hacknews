@@ -72,7 +72,7 @@ request.success = function(e) {
 request.send();
 
 function printHeadlines(e){
-//     document.querySelector("#display").innerHTML = "Done Loading and waiting for Action!";
+    document.querySelector("#display").innerHTML = "Done Loading and waiting for Action!";
     headlinesIDs = JSON.parse(e);
     for(var i=0; i<headlinesIDs.length; i++){
         var id = headlinesIDs[i];
