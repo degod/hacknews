@@ -60,18 +60,37 @@ function httpRequest() {
         }
     };
 }
-var headlinesIDs = [];
 
+var headlinesIDs = [];
 var request = new httpRequest();
 request.method = "GET";
 request.url = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty";
-request.success = function(response) {
-console.log(response);
-};
-request.fail = function(error) {
-console.log(error);
+request.success = function(e) {
+    console.log(JSON.parse(e));
+    printHeadlines(e);
 };
 request.send();
+
+function printHeadlines(e){
+    document.getElementById("display").innerHTML = "Done Loading and waiting for Action!";
+    headlinesIDs = JSON.parse(e);
+    for(var i=0; i<headlinesIDs.length; i++){
+        var id = headlinesIDs[i];
+        var request = new httpRequest();
+        request.method = "GET";
+        request.url = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty";
+        request.success = function(e) {
+            e = JSON.parse(e);
+            var content = document.getElementById("headlines").innerHTML;
+            document.getElementById("display").innerHTML = content+`
+                <a href="read-news.html?newsid=`+id+`.json?print=pretty">
+                    `+e.title+` by `+e.by+`
+                </a><hr>
+            `;
+        };
+        request.send();
+    }
+}
 
 	// $.ajax({
 	// 	url: "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty",
