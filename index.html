@@ -5,11 +5,25 @@
     
     <script>
     	$(document).ready(function(){
-    		alert("WORKS FINE...");
+    		// alert("WORKS FINE...");
+    		$.ajax({
+    			type: "GET",
+    			url: "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty",
+    			beforeSend: function(){
+    				$("#display").html("Loading up Top Stories!!!");
+    			},
+    			success: function(e){
+    				$("#display").html("Done Loading and waiting for Action!");
+    				console.log(e);
+    			},
+    			error: function(e){
+    				console.log(e);
+    			}
+    		});
     	});
     </script>
   </head>
   <body>
-    Something...
+    <h1 id="display">Welcome to HackerNews...</h1>
   </body>
 </html>
