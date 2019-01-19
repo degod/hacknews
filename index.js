@@ -81,8 +81,9 @@ function printHeadlines(e){
         request.url = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty";
         request.success = function(e) {
             e = JSON.parse(e);
+		console.log(e);
             var content = document.getElementById("headlines").innerHTML;
-            document.getElementById("display").innerHTML = content+`
+            document.getElementById("headlines").innerHTML = content+`
                 <a href="read-news.html?newsid=`+id+`.json?print=pretty">
                     `+e.title+` by `+e.by+`
                 </a><hr>
