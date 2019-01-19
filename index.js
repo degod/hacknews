@@ -62,6 +62,10 @@ function httpRequest() {
 }
 
 var headlinesIDs = [];
+var page = getUrlParameter(paginate);
+if(isNaN(page) || page == undefined || page == 0 || page == ""){
+    page = 0;
+}
 var request = new httpRequest();
 request.method = "GET";
 request.url = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty";
@@ -74,57 +78,34 @@ request.send();
 function printHeadlines(e){
     document.getElementById("display").innerHTML = "Done Loading and waiting for Action!";
     headlinesIDs = JSON.parse(e);
-    for(var i=0; i<10; i++){
+    var total = headlinesIDs.length;
+    var pull = 30 + page;
+    if(total < 30){
+        pull = total;
+    }
+    for(var i=page; i<pull; i++){
         var id = headlinesIDs[i];
         var request = new httpRequest();
         request.method = "GET";
         request.url = "https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty";
         request.success = function(e) {
             e = JSON.parse(e);
-		console.log(e);
+        console.log(e);
             var content = document.getElementById("headlines").innerHTML;
             document.getElementById("headlines").innerHTML = content+`
-                <a href="read-news.html?newsid=`+id+`.json?print=pretty">
+                `+(i+1)+`. &nbsp;<a href="index.html?newsid=`+id+`.json?print=pretty">
                     `+e.title+` by `+e.by+`
                 </a><hr>
             `;
         };
         request.send();
     }
+    if(pull < total){
+        var content = document.getElementById("headlines").innerHTML;
+        document.getElementById("headlines").innerHTML = content+`
+            <a href="index.html?paginate=`+pull+`">
+                See More ...
+            </a><hr>
+        `;
+    }
 }
-
-	// $.ajax({
-	// 	url: "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty",
- //        type: "GET",
-	// 	beforeSend: function(){
-	// 		$("#display").html("Loading up Top Stories!!!");
-	// 	},
-	// 	success: function(e){
-	// 		$("#display").html("Done Loading and waiting for Action!");
- //            headlinesIDs = e;
- //            for(var i=0; i<headlinesIDs.length; i++){
- //                var id = headlinesIDs[i];
- //                $.ajax({
- //                    url: "https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty",
- //                    type: "GET",
- //                    beforeSend: function(){
- //                        $("#display").html("Loading up Headlines!!!");
- //                    },
- //                    success: function(e){
- //                        $("#display").html("Done Loading and waiting for Action!");
- //                        $("#headlines").append(`
- //                            <a href="read-news.html?newsid=`+id+`.json?print=pretty">
- //                                `+e.title+` by `+e.by+`
- //                            </a><hr>
- //                        `);
- //                    },
- //                    error: function(e){
- //                        response = e
- //                    }
- //                });
- //            }
- //        },
- //        error: function(e){
- //            console.log(e);
- //        }
- //    });
