@@ -96,7 +96,7 @@ function printHeadlines(e){
             // console.log(e);
             var content = document.getElementById("headlines").innerHTML;
             document.getElementById("headlines").innerHTML = content+`
-                `+(i+1)+`. &nbsp;<a href="index.html?newsid=`+id+`.json?print=pretty">
+                `+(parseInt(i)+1)+`. &nbsp;<a href="index.html?newsid=`+id+`.json?print=pretty">
                     `+e.title+` by `+e.by+`
                 </a><hr>
             `;
