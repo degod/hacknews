@@ -13,6 +13,53 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     }
 };
+function httpRequest() {
+    var ajax = null,
+        response = null,
+        self = this;
+
+    this.method = null;
+    this.url = null;
+    this.async = true;
+    this.data = null;
+
+    this.send = function() {
+        ajax.open(this.method, this.url, this.asnyc);
+        ajax.send(this.data);
+    };
+
+    if(window.XMLHttpRequest) {
+        ajax = new XMLHttpRequest();
+    }
+    else if(window.ActiveXObject) {
+        try {
+            ajax = new ActiveXObject("Msxml2.XMLHTTP.6.0");
+        }
+        catch(e) {
+            try {
+                ajax = new ActiveXObject("Msxml2.XMLHTTP.3.0");
+            }
+            catch(error) {
+                self.fail("not supported");
+            }
+        }
+    }
+
+    if(ajax == null) {
+        return false;
+    }
+
+    ajax.onreadystatechange = function() {
+        if(this.readyState == 4) {
+            if(this.status == 200) {
+                self.success(this.responseText);
+            }
+            else {
+                self.fail(this.status + " - " + this.statusText);
+            }
+        }
+    };
+}
 var headlinesIDs = [];
 
 var request = new httpRequest();
