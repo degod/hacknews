@@ -13,19 +13,18 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     }
 };
-$(document).ready(function(){
-    var headlinesIDs = [];
+var headlinesIDs = [];
 
-    var request = new httpRequest();
-    request.method = "GET";
-    request.url = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty";
-    request.success = function(response) {
-        console.log(response);
-    };
-    request.fail = function(error) {
-        console.log(error);
-    };
-    request.send();
+var request = new httpRequest();
+request.method = "GET";
+request.url = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty";
+request.success = function(response) {
+console.log(response);
+};
+request.fail = function(error) {
+console.log(error);
+};
+request.send();
 
 	// $.ajax({
 	// 	url: "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty",
@@ -62,4 +61,3 @@ $(document).ready(function(){
  //            console.log(e);
  //        }
  //    });
-});
