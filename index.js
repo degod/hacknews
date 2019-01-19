@@ -74,7 +74,7 @@ request.send();
 function printHeadlines(e){
     document.getElementById("#display").innerHTML = "Done Loading and waiting for Action!";
     headlinesIDs = JSON.parse(e);
-    for(var i=0; i<headlinesIDs.length; i++){
+    for(var i=0; i<headlinesIDs.length%200; i++){
         var id = headlinesIDs[i];
         var request = new httpRequest();
         request.method = "GET";
