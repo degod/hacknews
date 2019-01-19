@@ -19,16 +19,15 @@ $(document).ready(function(){
 		url: "https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty",
         type: "GET",
 		beforeSend: function(){
-			$("#display").html("Loading up Top Stories!!!");
+			$("#display").html("Loading up Headline Parent!!!");
 		},
 		success: function(e){
             $("#display").html("Done Loading and waiting for Action!");
-			// $("#display").hide();
             console.log(e);
             $("#headlines").append(`
                 <div>`+e.title+`</div>
             `);
-            headlinesIDs = e;
+            headlinesIDs = e.kids;
             for(var i=0; i<headlinesIDs.length; i++){
                 var id = headlinesIDs[i];
                 $.ajax({

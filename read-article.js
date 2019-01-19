@@ -19,33 +19,14 @@ $(document).ready(function(){
 		url: "https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty",
         type: "GET",
 		beforeSend: function(){
-			$("#display").html("Loading up Top Stories!!!");
+			$("#display").html("Loading up Story!!!");
 		},
 		success: function(e){
             $("#display").html("Done Loading and waiting for Action!");
-			// $("#display").hide();
             console.log(e);
             $("#headlines").append(`
                 <div>`+e.title+`</div>
             `);
-            headlinesIDs = e.kids;
-            for(var i=0; i<headlinesIDs.length; i++){
-                var id = headlinesIDs[i];
-                $.ajax({
-                    url: "https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty",
-                    type: "GET",
-                    success: function(e){
-                        $("#headlines").append(`
-                            <a href="read-article.html?newsid=`+id+`.json?print=pretty">
-                                `+e.title+` by `+e.by+`
-                            </a><hr>
-                        `);
-                    },
-                    error: function(e){
-                        response = e
-                    }
-                });
-            }
         },
         error: function(e){
             console.log(e);
