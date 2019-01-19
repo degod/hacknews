@@ -14,28 +14,29 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 $(document).ready(function(){
-    var headlinesIDs = [];
+    var id = getUrlParameter('newsid');
 	$.ajax({
-		url: "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty",
+		url: "https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty",
         type: "GET",
 		beforeSend: function(){
 			$("#display").html("Loading up Top Stories!!!");
 		},
 		success: function(e){
-			$("#display").html("Done Loading and waiting for Action!");
-            headlinesIDs = e;
+            $("#display").html("Done Loading and waiting for Action!");
+			// $("#display").hide();
+            console.log(e);
+            $("#headlines").append(`
+                <div>`+e.title+`</div>
+            `);
+            headlinesIDs = e.kids;
             for(var i=0; i<headlinesIDs.length; i++){
                 var id = headlinesIDs[i];
                 $.ajax({
                     url: "https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty",
                     type: "GET",
-                    beforeSend: function(){
-                        $("#display").html("Loading up Headlines!!!");
-                    },
                     success: function(e){
-                        $("#display").html("Done Loading and waiting for Action!");
                         $("#headlines").append(`
-                            <a href="read-news.html?newsid=`+id+`.json?print=pretty">
+                            <a href="read-article.html?newsid=`+id+`.json?print=pretty">
                                 `+e.title+` by `+e.by+`
                             </a><hr>
                         `);
