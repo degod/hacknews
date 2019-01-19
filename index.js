@@ -36,7 +36,7 @@ $(document).ready(function(){
                     success: function(e){
                         $("#display").html("Done Loading and waiting for Action!");
                         $("#headlines").append(`
-                            <a href="https://hacker-news.firebaseio.com/v0/item/`+id+`.json?print=pretty">
+                            <a href="read-news.html?newsid=`+id+`.json?print=pretty">
                                 `+e.title+` by `+e.by+`
                             </a><hr>
                         `);
