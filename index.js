@@ -61,7 +61,9 @@ function httpRequest() {
     };
 }
 function timeSince(date) {
-    return new Date(date).toLocaleTimeString("en-US") ;
+    return new Date(date*1000).toLocaleTimeString("en-US") ;
+    // 1547903356
+    // 1504095567183
 }
 
 var headlinesIDs = [];
