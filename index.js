@@ -79,13 +79,13 @@ function printHeadlines(e){
     document.getElementById("display").innerHTML = "Done Loading and waiting for Action!";
     headlinesIDs = JSON.parse(e);
     var total = headlinesIDs.length;
-    var pull = 30 + page;
+    var pull = 30 + parseInt(page);
     if(total < 30){
         pull = total;
     }
     console.log("Page: "+page);
     console.log("Pull: "+pull);
-    
+
     for(var i=page; i<pull; i++){
         var id = headlinesIDs[i];
         var request = new httpRequest();
