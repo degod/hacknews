@@ -36,6 +36,7 @@
                         success: function(e){
                             $("#display").html("Done Loading and waiting for Action!");
                             headlines[headlines.length] = e;
+                            console.log(e);
                         },
                         error: function(e){
                             response = e
