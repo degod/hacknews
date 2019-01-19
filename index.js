@@ -70,7 +70,7 @@ var request = new httpRequest();
 request.method = "GET";
 request.url = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty";
 request.success = function(e) {
-    console.log(JSON.parse(e));
+    // console.log(JSON.parse(e));
     printHeadlines(e);
 };
 request.send();
@@ -92,6 +92,8 @@ function printHeadlines(e){
         request.method = "GET";
         request.url = "https://hacker-news.firebaseio.com/v0/item/"+id+".json?print=pretty";
         request.success = function(e) {
+            if(i == page)
+                console.log(e);
             e = JSON.parse(e);
             var content = document.getElementById("headlines").innerHTML;
             document.getElementById("headlines").innerHTML = content+`
@@ -112,7 +114,7 @@ function printHeadlines(e){
             `;
         }else{
             document.getElementById("headlines").innerHTML = content+`
-                <div><a href="index.html?paginate=`+page+`">
+                <div><a href="index.html?paginate=`+parseInt(page-30)+`">
                     << Previous Page
                 </a><a href="index.html?paginate=`+pull+`" style="float:right">
                     Next Page >>
