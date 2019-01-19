@@ -60,6 +60,31 @@ function httpRequest() {
         }
     };
 }
+function timeSince(date) {
+    var seconds = Math.floor((new Date() - date) / 1000);
+    var interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+        return interval + " years";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+        return interval + " months";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+        return interval + " days";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+        return interval + " hours";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+        return interval + " minutes";
+    }
+    return Math.floor(seconds) + " seconds";
+}
 
 var headlinesIDs = [];
 var page = getUrlParameter('paginate');
@@ -98,8 +123,9 @@ function printHeadlines(e){
             var content = document.getElementById("headlines").innerHTML;
             document.getElementById("headlines").innerHTML = content+`
                 `+(parseInt(i)+1)+`. &nbsp;<a href="index.html?newsid=`+id+`.json?print=pretty">
-                    `+e.title+` by `+e.by+`
-                </a><hr>
+                    `+e.title+`
+                </a> <a href="`+e.url+`">(`+e.url.split("/")[2].replace("www.", "")+`)</a><br>
+                <small>`+e.score+` points by `+e.by+` `+timeSince(e.score)+`| `+JSON.parse(e.score).length+` comments</small><hr>
             `;
         };
         request.send();
